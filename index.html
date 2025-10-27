@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Jaméka</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+
+<style>
+      /* 🔹 Biar semua card produk sejajar */
+      .card-img-top {
+        height: 300px;
+        object-fit: cover;
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+      .card {
+        height: 100%;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+      }
+    </style>
+  </head>
+
+  <body id="page-top">
+
+<!-- 🛒 Cart Icon -->
+<a href="#" id="cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal" style="
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  background-color: rgba(50, 50, 50, 0.7);
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  text-decoration: none;
+  backdrop-filter: blur(4px);
+">
+  <i class="fas fa-shopping-cart" style="font-size: 22px;"></i>
+  <span id="cart-count" style="
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    background: #3e2723;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  ">0</span>
+</a>
+
+<!-- 🔹 Modal Cart -->
+<div class="modal fade" id="cartModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Keranjang Belanja</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <ul id="cart-items" class="list-group mb-3"></ul>
+        <p id="empty-cart">Keranjang kosong.</p>
+        <h5>Total: <span id="cart-total">Rp0</span></h5>
+        <button class="btn btn-success mt-2" id="checkout">Bayar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Pesan Sukses -->
+<div id="success-msg" style="
+  display:none; position:fixed; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:#4caf50; color:white;
+  padding:15px 25px; border-radius:10px;
+  font-weight:bold; z-index:2000;
+">✅ Pembayaran Berhasil!</div>
+
+<!-- Navigation -->
+<a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
+<nav id="sidebar-wrapper" style="background-color: #5d4037;">
+  <ul class="sidebar-nav">
+    <li class="sidebar-brand"><a href="#page-top">Jaméka</a></li>
+    <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
+    <li class="sidebar-nav-item"><a href="#about">About</a></li>
+    <li class="sidebar-nav-item"><a href="#portfolio">Products</a></li>
+    <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Header -->
+<header class="masthead d-flex align-items-center" style="
+    background-image: url('assets/img/watch-collection.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;">
+  <div class="container px-4 px-lg-5 text-center" style="
+        color: #ffffff;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);">
+    <h1 class="mb-1">Jaméka</h1>
+    <h3 class="mb-5"><em>Designed for Every Moment.</em></h3>
+    <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
+  </div>
+</header>
+
+<!-- About Section -->
+<section class="content-section" id="about" style="background-color: #f5e6ca; color: #3e2723;">
+  <div class="container px-4 px-lg-5">
+    <div class="row align-items-center gx-5">
+      <div class="col-lg-6 mb-4 mb-lg-0 text-center">
+        <img src="assets/img/watch.jpg" alt="Jaméka Watch Collection" class="img-fluid rounded shadow-lg" style="max-width: 100%; border-radius: 12px;">
+      </div>
+      <div class="col-lg-6 text-center text-lg-start">
+        <h2 class="mb-4 fw-bold" style="color: #3e2723;">About Jaméka</h2>
+        <p class="lead mb-4" style="color: #4e342e;">
+          Jaméka is a premium watch brand dedicated to providing timeless pieces that blend classic design and meticulous craftsmanship.
+        </p>
+        <a href="#services" class="btn btn-dark btn-xl" style="background-color: #3e2723; border: none;">
+  Explore Services
+</a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+    <section class="content-section text-white text-center" id="services" style="background-color: #5d4037; color: #ffffff;">
+      <div class="container px-4 px-lg-5">
+        <div class="content-section-heading">
+          <h3 class="text-secondary mb-0" style="color: #fff;">Services</h3>
+          <h2 class="mb-5" style="color: #fff;">What We Offer</h2>
+        </div>
+        <div class="row gx-4 gx-lg-5">
+          <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+            <span class="service-icon rounded-circle mx-auto mb-3" style="background-color: #3e2723; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+              <i class="icon-diamond"></i>
+            </span>
+            <h4><strong>Selling Watch Accessories</strong></h4>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+            <span class="service-icon rounded-circle mx-auto mb-3" style="background-color: #3e2723; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </span>
+            <h4><strong>Watch Service and Repair</strong></h4>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+            <span class="service-icon rounded-circle mx-auto mb-3" style="background-color: #3e2723; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+              <i class="fa-solid fa-headset"></i>
+            </span>
+            <h4><strong>Online Services</strong></h4>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <span class="service-icon rounded-circle mx-auto mb-3" style="background-color: #3e2723; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+              <i class="fa-solid fa-right-left"></i>
+            </span>
+            <h4><strong>Trade In Watches</strong></h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Callout -->
+<section class="callout" style="
+  background-image: url('assets/img/watch-callout.jpeg');
+  background-size: cover;
+  background-position: center;
+  padding: 8rem 0;
+  text-align: center;
+  color: white;">
+  <div class="container px-4 px-lg-5">
+    <h2 class="mx-auto mb-5 fw-bold">Welcome to <em>Your</em> Next Website!</h2>
+    <a class="btn btn-xl" href="#portfolio" style="background-color: #f5e6ca; color: #3e2723; font-weight: 600; border: none;">Explore Products</a>
+  </div>
+</section>
+
+
+<!-- Products Section -->
+<section class="content-section" id="portfolio" style="background-color: #f5e6ca;">
+  <div class="container text-center">
+    <div class="content-section-heading mb-5">
+      <h3 style="color:#3e2723;">Our Products</h3>
+      <h2 class="mb-5" style="color:#3e2723;">Explore Our Collection</h2>
+    </div>
+    <div class="row gx-4 gx-lg-5" id="product-list"></div>
+  </div>
+</section>
+
+<!-- 🧠 SCRIPT PRODUK DENGAN FITUR TAMBAH, KURANG, HAPUS -->
+<script>
+  const products = [
+    {id:1, name:"Jaméka Classic", price:350000, desc:"Elegan dan minimalis untuk segala suasana."},
+    {id:2, name:"Jaméka Gold", price:400000, desc:"Mewah dan berkelas dengan sentuhan emas elegan."},
+    {id:3, name:"Jaméka Sport", price:520000, desc:"Tangguh dan modern untuk aktivitas outdoor."},
+    {id:4, name:"Jaméka Silver", price:450000, desc:"Warna perak elegan dengan desain premium."},
+    {id:5, name:"Jaméka Chrono", price:550000, desc:"Fitur chronograph presisi tinggi dalam desain mewah."},
+    {id:6, name:"Jaméka Leather", price:480000, desc:"Klasik dengan tali kulit asli berkualitas tinggi."}
+  ];
+
+  const list = document.getElementById('product-list');
+  products.forEach(p=>{
+    list.innerHTML += `
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img src="assets/img/watch${p.id}.jpg" class="card-img-top product-img" 
+               alt="${p.name}" data-id="${p.id}" style="cursor:pointer;">
+          <div class="card-body text-center">
+            <h5>${p.name}</h5>
+            <p>Rp${p.price.toLocaleString('id-ID')}</p>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  let cart = [];
+  const cartCount = document.getElementById('cart-count');
+  const cartItems = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const emptyCart = document.getElementById('empty-cart');
+
+  // Klik umum
+  document.addEventListener('click', e => {
+    // Klik gambar → buka modal detail
+    if(e.target.classList.contains('product-img')){
+      const id = e.target.dataset.id;
+      const p = products.find(x=>x.id==id);
+      showProductDetail(p);
+    }
+
+    // Tambah ke keranjang
+    if(e.target.id === 'detail-add'){
+      const id = e.target.dataset.id;
+      const item = products.find(p=>p.id==id);
+      const exist = cart.find(i=>i.id==id);
+      exist ? exist.qty++ : cart.push({...item, qty:1});
+      updateCart();
+    }
+
+    // Beli sekarang
+    if(e.target.id === 'buy-now'){
+      const id = e.target.dataset.id;
+      const p = products.find(x=>x.id==id);
+      document.getElementById('detailModal').querySelector('.btn-close').click();
+      const msg=document.getElementById('success-msg');
+      msg.innerHTML=`✅ Pembelian ${p.name} Berhasil!`;
+      msg.style.display='block';
+      setTimeout(()=>msg.style.display='none',2000);
+    }
+
+    // Tombol tambah (+)
+    if(e.target.classList.contains('cart-plus')){
+      const id = e.target.dataset.id;
+      const item = cart.find(i=>i.id==id);
+      if(item){ item.qty++; updateCart(); }
+    }
+
+    // Tombol kurang (−)
+    if(e.target.classList.contains('cart-minus')){
+      const id = e.target.dataset.id;
+      const item = cart.find(i=>i.id==id);
+      if(item){
+        item.qty--;
+        if(item.qty <= 0){
+          cart = cart.filter(i=>i.id != id);
+        }
+        updateCart();
+      }
+    }
+
+    // Tombol hapus (🗑️)
+    if(e.target.classList.contains('cart-remove')){
+      const id = e.target.dataset.id;
+      cart = cart.filter(i=>i.id != id);
+      updateCart();
+    }
+  });
+
+  function updateCart(){
+    cartItems.innerHTML = '';
+    let total = 0, count = 0;
+    cart.forEach(i=>{
+      total += i.price * i.qty;
+      count += i.qty;
+      cartItems.innerHTML += `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div style="text-align:left;">
+            <strong>${i.name}</strong><br>
+            <small>Rp${i.price.toLocaleString('id-ID')} x ${i.qty}</small>
+          </div>
+          <div>
+            <button class="btn btn-sm btn-outline-secondary cart-minus" data-id="${i.id}">−</button>
+            <button class="btn btn-sm btn-outline-secondary cart-plus" data-id="${i.id}">+</button>
+            <button class="btn btn-sm btn-outline-danger cart-remove" data-id="${i.id}">🗑️</button>
+          </div>
+        </li>`;
+    });
+    emptyCart.style.display = cart.length ? 'none' : 'block';
+    cartTotal.textContent = "Rp" + total.toLocaleString('id-ID');
+    cartCount.textContent = count;
+  }
+
+  document.getElementById('checkout').addEventListener('click', ()=>{
+    if(cart.length==0) return alert("Keranjang masih kosong!");
+    cart.length=0; updateCart();
+    document.querySelector('#cartModal .btn-close').click();
+    const msg=document.getElementById('success-msg');
+    msg.innerHTML='✅ Pembayaran Berhasil!';
+    msg.style.display='block';
+    setTimeout(()=>msg.style.display='none',2000);
+  });
+
+  function showProductDetail(p){
+    let modal = document.getElementById('detailModal');
+    if(!modal){
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <div class="modal fade" id="detailModal" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">Detail Produk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body text-center">
+                <img id="detail-img" src="" class="img-fluid rounded mb-3 shadow-sm" style="max-height:300px;">
+                <h4 id="detail-name"></h4>
+                <p id="detail-desc" class="text-muted"></p>
+                <h5 id="detail-price" class="mb-3"></h5>
+                <button class="btn btn-dark me-2" id="detail-add" data-id="">Tambah ke Keranjang</button>
+                <button class="btn btn-success" id="buy-now" data-id="">Beli Sekarang</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      document.body.appendChild(div);
+      modal = document.getElementById('detailModal');
+    }
+
+    modal.querySelector('#detail-img').src = `assets/img/watch${p.id}.jpg`;
+    modal.querySelector('#detail-name').textContent = p.name;
+    modal.querySelector('#detail-desc').textContent = p.desc;
+    modal.querySelector('#detail-price').textContent = "Rp" + p.price.toLocaleString('id-ID');
+    modal.querySelector('#detail-add').dataset.id = p.id;
+    modal.querySelector('#buy-now').dataset.id = p.id;
+
+    new bootstrap.Modal(modal).show();
+  }
+</script>
+
+<!-- Contact Section -->
+<section class="content-section text-center" id="contact" style="background-color: #5d4037; color: #ffffff; padding: 6rem 0;">
+  <div class="container px-4 px-lg-5">
+    <div class="content-section-heading mb-5">
+      <h3 class="text-secondary mb-0" style="color: #f5e6ca;">Contact</h3>
+      <h2 class="mb-4 fw-bold">Get In Touch</h2>
+      <p class="mb-5" style="color:#f5e6ca;">Have questions or need assistance? Reach out to us anytime — we’re here to help you.</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <!-- Contact Info -->
+      <div class="col-lg-4 mb-4">
+        <div class="card shadow-lg border-0 h-100" style="background-color: #3e2723; color: #f5e6ca;">
+          <div class="card-body text-center">
+            <i class="fas fa-map-marker-alt fa-2x mb-3"></i>
+            <h5 class="fw-bold">Address</h5>
+            <p>Jl. Merdeka No. 123, Jakarta, Indonesia</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4">
+        <div class="card shadow-lg border-0 h-100" style="background-color: #3e2723; color: #f5e6ca;">
+          <div class="card-body text-center">
+            <i class="fas fa-envelope fa-2x mb-3"></i>
+            <h5 class="fw-bold">Email</h5>
+            <p>support@jameka.com</p>
+          </div>
+        </div>
+      </div>
+     <div class="col-lg-4 mb-4">
+  <div class="card shadow-lg border-0 h-100" style="background-color: #3e2723; color: #f5e6ca;">
+    <div class="card-body text-center">
+      <i class="fa-brands fa-whatsapp fa-2x mb-3"></i>
+      <h5 class="fw-bold">WhatsApp</h5>
+      <p>+62 812-8521-1218</p>
+    </div>
+  </div>
+</div>
+
+<!-- Tambahkan Font Awesome jika belum ada -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+    <!-- Contact Form -->
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-8">
+        <form class="shadow-lg p-4 rounded" style="background-color: #3e2723; color: #f5e6ca;">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" class="form-control" rows="4" placeholder="Your Message..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-light btn-lg mt-2">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="footer text-center" style="background-color: #f5e6ca; padding: 3rem 0;">
+  <div class="container px-4 px-lg-5">
+    <ul class="list-inline mb-5">
+      <li class="list-inline-item">
+        <a class="social-link rounded-circle text-white mr-3" href="#" 
+           style="background-color: #3e2723; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+          <i class="icon-social-facebook"></i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="social-link rounded-circle text-white mr-3" href="#" 
+           style="background-color: #3e2723; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+          <i class="icon-social-twitter"></i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="social-link rounded-circle text-white mr-3" href="#" 
+           style="background-color: #3e2723; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a class="social-link rounded-circle text-white" href="#" 
+           style="background-color: #3e2723; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+      </li>
+    </ul>
+    <p class="text-muted small mb-0" style="color:#3e2723;">© Jaméka 2025</p>
+  </div>
+</footer>
+
+<!-- Font Awesome untuk ikon Instagram & TikTok -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
+
+</body>
+</html>
